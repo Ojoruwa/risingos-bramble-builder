@@ -62,7 +62,8 @@ jobs:
           mkdir -p ~/rising && cd ~/rising
           git config --global user.email "ojoruwa@github.com"
           git config --global user.name "Ojoruwa"
-          repo init -u https://github.com/RisingOS-Revived/android -b seventeen --git-lfs --no-clone-bundle --depth=1
+                    export GIT_LFS_SKIP_SMUDGE=1
+          repo init -u https://github.com/RisingOS-Revived/android -b seventeen --git-lfs --no-clone-bundle --depth=1 --clone-filter=blob:limit=10M --partial-clone
 
       - name: Add bramble manifest
         run: |
@@ -73,11 +74,17 @@ jobs:
       - name: Sync source
         run: |
           cd ~/rising
+          export GIT_LFS_SKIP_SMUDGE=1
           df -h
-          repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j4 || repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j4
+          echo "Sync default group only, skip other devices"
+          repo sync -g default -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j4 || repo sync -g default -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j4
+          echo "Sync bramble projects explicitly"
+          repo sync device/google/bramble device/google/redbull kernel/google/redbull vendor/google/bramble -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j4 || true
           echo "Sync done"
           df -h
+          du -sh ~/rising/.repo || true
           du -sh ~/rising/* | sort -h || true
+          
       - name: Setup bramble for RisingOS
         run: |
           cp $GITHUB_WORKSPACE/setup_bramble.sh ~/setup_bramble.sh

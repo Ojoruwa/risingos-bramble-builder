@@ -74,11 +74,10 @@ jobs:
         run: |
           cd ~/rising
           df -h
-          repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync --depth=1 -j4 || repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync --depth=1 -j4
+          repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j4 || repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j4
           echo "Sync done"
           df -h
           du -sh ~/rising/* | sort -h || true
-
       - name: Setup bramble for RisingOS
         run: |
           cp $GITHUB_WORKSPACE/setup_bramble.sh ~/setup_bramble.sh

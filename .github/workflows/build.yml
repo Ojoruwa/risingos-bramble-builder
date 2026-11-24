@@ -16,6 +16,11 @@ jobs:
         with:
           tool-cache: false
 
+      - name: Validate bramble.xml
+        run: |
+          cat $GITHUB_WORKSPACE/bramble.xml
+          python3 -c "import xml.etree.ElementTree as ET; ET.parse('$GITHUB_WORKSPACE/bramble.xml'); print('bramble.xml XML OK')"
+
       - name: Install build packages
         run: |
           sudo apt update
@@ -46,6 +51,7 @@ jobs:
         run: |
           mkdir -p ~/rising/.repo/local_manifests
           cp $GITHUB_WORKSPACE/bramble.xml ~/rising/.repo/local_manifests/bramble.xml
+          cat ~/rising/.repo/local_manifests/bramble.xml
 
       - name: Sync source
         run: |
@@ -73,8 +79,8 @@ jobs:
         with:
           name: RisingOS-bramble-Ojoruwa-Vanilla
           path: |
-            ~/rising/out/target/product/bramble/*.zip
-            ~/rising/out/target/product/bramble/boot.img
-            ~/rising/out/target/product/bramble/dtbo.img
-            ~/rising/out/target/product/bramble/vendor_boot.img
-            ~/rising/out/target/product/bramble/recovery.img
+            /home/runner/rising/out/target/product/bramble/*.zip
+            /home/runner/rising/out/target/product/bramble/boot.img
+            /home/runner/rising/out/target/product/bramble/dtbo.img
+            /home/runner/rising/out/target/product/bramble/vendor_boot.img
+            /home/runner/rising/out/target/product/bramble/recovery.img

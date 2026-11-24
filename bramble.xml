@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+  <project name="LineageOS/android_device_google_bramble" path="device/google/bramble" remote="github" revision="lineage-24.0" />
+  <project name="LineageOS/android_device_google_redbull" path="device/google/redbull" remote="github" revision="lineage-24.0" />
+  <project name="LineageOS/android_kernel_google_redbull" path="kernel/google/redbull" remote="github" revision="lineage-24.0" />
+  <project name="TheMuppets/proprietary_vendor_google_bramble" path="vendor/google/bramble" remote="github" revision="lineage-24.0" />
+</manifest>

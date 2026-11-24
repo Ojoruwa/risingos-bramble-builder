@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <manifest>
-  <project name="LineageOS/android_device_google_bramble" path="device/google/bramble" remote="github" revision="lineage-24.0" />
-  <project name="LineageOS/android_device_google_redbull" path="device/google/redbull" remote="github" revision="lineage-24.0" />
-  <project name="LineageOS/android_kernel_google_redbull" path="kernel/google/redbull" remote="github" revision="lineage-24.0" />
-  <project name="TheMuppets/proprietary_vendor_google_bramble" path="vendor/google/bramble" remote="github" revision="lineage-24.0" />
+  <!-- Remotes - explicit, do not rely on RisingOS manifest -->
+  <remote name="lineage" fetch="https://github.com/LineageOS/" />
+  <remote name="muppets" fetch="https://github.com/TheMuppets/" />
+
+  <!-- Default for all projects below -->
+  <default revision="lineage-24.0" remote="lineage" sync-j="4" />
+
+  <!-- Device - bramble needs both, redbull is the shared platform -->
+  <project name="android_device_google_bramble" path="device/google/bramble" />
+  <project name="android_device_google_redbull" path="device/google/redbull" />
+
+  <!-- Kernel - 4.19 for redbull -->
+  <project name="android_kernel_google_redbull" path="kernel/google/redbull" />
+
+  <!-- Vendor blobs - only bramble -->
+  <!-- There is no separate redbull vendor repo, bramble vendor covers it -->
+  <project name="proprietary_vendor_google_bramble" path="vendor/google/bramble" remote="muppets" />
 </manifest>
